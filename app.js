@@ -1,8 +1,12 @@
-var scores,round_score,active_player,dice,game_status;
+var scores,round_score,active_player,dice,game_status,winner_score,selected_score;
 initial();
+player0();
+player1();
 
 document.querySelector('.btn-roll').addEventListener('click',function(){
     if (game_status){
+        winner_score=document.getElementById('selected-score').value;
+
         //randome number
         var dice=Math.floor(Math.random()*6)+1;
 
@@ -32,7 +36,7 @@ document.querySelector('.btn-hold').addEventListener('click',function(){
         document.querySelector('#score-'+active_player).textContent=scores[active_player];
 
         //update UI
-        if (scores[active_player]>=100){
+        if (scores[active_player]>=winner_score){
             document.querySelector('#name-'+active_player).textContent='YOU WIN';
             document.querySelector('.dice').style.display='none';
             document.querySelector('.player-'+active_player+'-panel').classList.add('winner');
@@ -66,6 +70,7 @@ function initial(){
     round_score=0;
     active_player=0;
     game_status=true;
+    // choosing the score from drop down
 
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-1-panel').classList.remove('active');
@@ -77,8 +82,24 @@ function initial(){
     document.getElementById('current-0').textContent='0';
     document.getElementById('current-1').textContent='0';
     document.querySelector('.dice').style.display='none';
-    document.getElementById('name-0').textContent='Player 1';
-    document.getElementById('name-1').textContent='Player 2';
 
+};
 
+function player0(){
+    var player_1 = prompt("Please enter player #1 name:", "Player 1");
+       if (player_1 == null || player_1 == "") {
+           txt = "User cancelled the prompt.";
+       } else {
+           document.getElementById('name-0').textContent=player_1;
+       }
+};
+
+function player1(){
+    var player_2 = prompt("Please enter player #2 name:", "Player 2");
+        if (player_2 == null || player_2 == "") {
+            txt = "User cancelled the prompt.";
+        }
+        else {
+            document.getElementById('name-1').textContent=player_2;
+        }
 };
