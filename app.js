@@ -1,4 +1,4 @@
-var scores,round_score,active_player,dice,game_status,winner_score,selected_score;
+var scores,round_score,active_player,dice,game_status,winner_score,selected_score,player_old_0,player_old_1;
 initial();
 player0();
 player1();
@@ -36,7 +36,11 @@ document.querySelector('.btn-hold').addEventListener('click',function(){
         document.querySelector('#score-'+active_player).textContent=scores[active_player];
 
         //update UI
-        if (scores[active_player]>=winner_score){
+        if (scores[active_player] >= winner_score){
+            // store names before changing to "you win"
+             player_old_0=document.querySelector('#name-0').textContent;
+             player_old_1=document.querySelector('#name-1').textContent;
+            // print "you win"
             document.querySelector('#name-'+active_player).textContent='YOU WIN';
             document.querySelector('.dice').style.display='none';
             document.querySelector('.player-'+active_player+'-panel').classList.add('winner');
@@ -50,7 +54,10 @@ document.querySelector('.btn-hold').addEventListener('click',function(){
 });
 
 //renew it!
-document.querySelector('.btn-new').addEventListener('click',initial);
+document.querySelector('.btn-new').addEventListener('click',new_game);
+
+//restart the game with new players
+document.querySelector('.btn-player').addEventListener('click',restart);
 
 function next_turn(){
     active_player===0 ? active_player=1:active_player=0;
@@ -88,7 +95,7 @@ function initial(){
 function player0(){
     var player_1 = prompt("Please enter player #1 name:", "Player 1");
        if (player_1 == null || player_1 == "") {
-           txt = "User cancelled the prompt.";
+          document.getElementById('name-0').textContent="Player 1";
        } else {
            document.getElementById('name-0').textContent=player_1;
        }
@@ -97,9 +104,24 @@ function player0(){
 function player1(){
     var player_2 = prompt("Please enter player #2 name:", "Player 2");
         if (player_2 == null || player_2 == "") {
-            txt = "User cancelled the prompt.";
+            document.getElementById('name-1').textContent="Player 2";
         }
         else {
             document.getElementById('name-1').textContent=player_2;
         }
+};
+
+function restart(){
+    initial();
+    document.getElementById('name-0').textContent=" ";
+    document.getElementById('name-1').textContent=" ";
+    player0();
+    player1();
+};
+
+function new_game(){
+    initial();
+    document.getElementById('name-0').textContent=player_old_0;
+    document.getElementById('name-1').textContent=player_old_1;
+
 };

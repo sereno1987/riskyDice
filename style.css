@@ -158,9 +158,10 @@ i {
     transition: margin 0.3s;
 }
 
-.btn-new { top: 40px;}
+.btn-new { top: 50px;}
 .btn-roll { top: 403px;}
 .btn-hold { top: 457px;}
+.btn-player { top: 20px;}
 
 .dice {
     position: absolute;
